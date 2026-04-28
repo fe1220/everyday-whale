@@ -1,0 +1,23 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Todo {
+  id String @id @default(cuid()) // 고유 ID
+  content String // 내용
+  completed Boolean @default(false) // 완료 여부
+  created_at DateTime @default(now()) @db.Timestamptz(3) // 생성일시
+  updated_at DateTime @updatedAt @db.Timestamptz(3) // 수정일시 (자동 업데이트)
+  deleted_at DateTime? @db.Timestamptz(3) // 삭제일시
+  userId String // 유저 ID
+}
